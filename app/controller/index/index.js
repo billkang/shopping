@@ -8,12 +8,4 @@ module.exports = class IndexController extends egg.Controller {
   async client() {
     await this.ctx.renderClient('index/index.js');
   }
-
-  async list() {
-    this.ctx.body = this.service.article.getArtilceList(this.ctx.query);
-  }
-
-  async detail() {
-    const id = this.ctx.query.id;
-  }
 };

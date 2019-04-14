@@ -51,6 +51,7 @@ Vue.directive('clickOutside', clickOutside)
 export default {
   router,
   store,
+  i18n,
   computed: {},
   hook :{},
   mounted() {},

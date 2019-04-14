@@ -1,6 +1,9 @@
 export default {
   home: '首页',
   login: '登录',
+  roles: '角色管理',
+  roles_list: '角色列表',
+  roles_new: '新增角色',
   components: '组件',
   count_to_page: '数字渐变',
   tables_page: '多功能表格',

@@ -18,14 +18,18 @@ class RoleService extends Service {
   }
 
   async create(Role) {
-    const {
-      name,
-    } = Role;
-    return await this.ctx.model.Role.create({
-      name,
-      created_at: Date.now(),
-      updated_at: Date.now(),
-    });
+      try{
+        const {
+        name,
+        } = Role;
+        return await this.ctx.model.Role.create({
+        name,
+        created_at: Date.now(),
+        updated_at: Date.now(),
+        });
+    } catch(e) {
+        throw new Error(e.original.sqlMessage);
+    }
   }
 
   async update(id, payload) {

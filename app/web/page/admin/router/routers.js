@@ -11,7 +11,7 @@ import parentView from '@/components/parent-view'
  *  hideInBread: (false) 设为true后此级路由将不会出现在面包屑中，示例看QQ群路由配置
  *  hideInMenu: (false) 设为true后在左侧菜单不会显示该页面选项
  *  notCache: (false) 设为true后页面在切换标签后不会缓存，如果需要缓存，无需设置这个字段，而且需要设置页面组件name属性和路由配置的name一致
- *  access: (null) 可访问该页面的权限数组，当前路由设置的权限会影响子路由
+ *  access: (null) 可访问该页面的角色数组，当前路由设置的角色会影响子路由
  *  icon: (-) 该页面在左侧菜单、面包屑和标签导航处显示的图标，如果是自定义图标，需要在图标名称前加下划线'_'
  *  beforeCloseName: (-) 设置该字段，则在关闭当前tab页时会去'@/router/before-close.js'里寻找该字段名对应的方法，作为关闭前的钩子函数
  * }
@@ -19,7 +19,7 @@ import parentView from '@/components/parent-view'
 
 export default [
   {
-    path: '/login',
+    path: '/admin/login',
     name: 'login',
     meta: {
       title: 'Login - 登录',
@@ -28,7 +28,7 @@ export default [
     component: () => import('@/view/login/login.vue')
   },
   {
-    path: '/',
+    path: '/admin',
     name: '_home',
     redirect: '/home',
     component: Main,
@@ -51,16 +51,7 @@ export default [
     ]
   },
   {
-    path: '',
-    name: 'doc',
-    meta: {
-      title: '文档',
-      href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book'
-    }
-  },
-  {
-    path: '/join',
+    path: '/admin/join',
     name: 'join',
     component: Main,
     meta: {
@@ -79,7 +70,7 @@ export default [
     ]
   },
   {
-    path: '/message',
+    path: '/admin/message',
     name: 'message',
     component: Main,
     meta: {
@@ -99,7 +90,45 @@ export default [
     ]
   },
   {
-    path: '/components',
+    path: '/admin/roles',
+    name: 'roles',
+    meta: {
+      icon: 'md-people',
+      title: '角色管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'list',
+        name: 'roles_list',
+        meta: {
+          icon: 'md-list',
+          title: '角色列表'
+        },
+        component: () => import('@/view/roles/list.vue')
+      },
+      {
+        path: 'new',
+        name: 'roles_new',
+        meta: {
+          icon: 'md-create',
+          title: '新增角色'
+        },
+        component: () => import('@/view/roles/add-edit.vue')
+      },
+      {
+        path: 'edit',
+        name: 'roles_edit',
+        meta: {
+          title: '角色编辑',
+          hideInMenu: true
+        },
+        component: () => import('@/view/roles/add-edit.vue')
+      }
+    ]
+  },
+  {
+    path: '/admin/components',
     name: 'components',
     meta: {
       icon: 'logo-buffer',
@@ -218,7 +247,7 @@ export default [
     ]
   },
   {
-    path: '/update',
+    path: '/admin/update',
     name: 'update',
     meta: {
       icon: 'md-cloud-upload',
@@ -247,7 +276,7 @@ export default [
     ]
   },
   {
-    path: '/excel',
+    path: '/admin/excel',
     name: 'excel',
     meta: {
       icon: 'ios-stats',
@@ -276,7 +305,7 @@ export default [
     ]
   },
   {
-    path: '/tools_methods',
+    path: '/admin/tools_methods',
     name: 'tools_methods',
     meta: {
       hideInBread: true
@@ -296,7 +325,7 @@ export default [
     ]
   },
   {
-    path: '/i18n',
+    path: '/admin/i18n',
     name: 'i18n',
     meta: {
       hideInBread: true
@@ -315,7 +344,7 @@ export default [
     ]
   },
   {
-    path: '/error_store',
+    path: '/admin/error_store',
     name: 'error_store',
     meta: {
       hideInBread: true
@@ -334,7 +363,7 @@ export default [
     ]
   },
   {
-    path: '/error_logger',
+    path: '/admin/error_logger',
     name: 'error_logger',
     meta: {
       hideInBread: true,
@@ -354,7 +383,7 @@ export default [
     ]
   },
   {
-    path: '/directive',
+    path: '/admin/directive',
     name: 'directive',
     meta: {
       hideInBread: true
@@ -373,7 +402,7 @@ export default [
     ]
   },
   {
-    path: '/multilevel',
+    path: '/admin/multilevel',
     name: 'multilevel',
     meta: {
       icon: 'md-menu',
@@ -433,7 +462,7 @@ export default [
     ]
   },
   {
-    path: '/argu',
+    path: '/admin/argu',
     name: 'argu',
     meta: {
       hideInMenu: true
@@ -464,7 +493,7 @@ export default [
     ]
   },
   {
-    path: '/401',
+    path: '/admin/401',
     name: 'error_401',
     meta: {
       hideInMenu: true
@@ -472,7 +501,7 @@ export default [
     component: () => import('@/view/error-page/401.vue')
   },
   {
-    path: '/500',
+    path: '/admin/500',
     name: 'error_500',
     meta: {
       hideInMenu: true
@@ -480,7 +509,7 @@ export default [
     component: () => import('@/view/error-page/500.vue')
   },
   {
-    path: '*',
+    path: 'admin/*',
     name: 'error_404',
     meta: {
       hideInMenu: true

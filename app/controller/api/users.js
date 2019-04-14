@@ -2,50 +2,53 @@
 
 const Controller = require('egg').Controller;
 
-class RoleController extends Controller {
+class UserController extends Controller {
   async index() {
     const ctx = this.ctx;
+
     const query = {
       limit: ctx.helper.parseInt(ctx.query.limit || 20),
       offset: ctx.helper.parseInt(ctx.query.offset || 0),
     };
-    ctx.body = await ctx.service.role.findAll(query);
+    ctx.body = await ctx.service.users.findAll(query);
   }
 
   async show() {
     const ctx = this.ctx;
-    ctx.body = await ctx.service.role.findById(ctx.helper.parseInt(ctx.params.id));
+    ctx.body = await ctx.service.users.findById(ctx.helper.parseInt(ctx.params.id));
   }
 
   async create() {
     const ctx = this.ctx;
     const {
       name,
+      age,
     } = ctx.request.body;
-    const Role = await ctx.service.role.create({
+    const user = await ctx.service.users.create({
       name,
+      age,
     });
     ctx.status = 201;
-    ctx.body = Role;
+    ctx.body = user;
   }
 
   async update() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-    const Role = await ctx.service.role.update(id, ctx.request.body);
-    if (!Role) {
+    const user = await ctx.service.users.update(id, ctx.request.body);
+    if (!user) {
       ctx.status = 404;
       return;
     }
 
-    ctx.body = Role;
+    ctx.body = user;
   }
 
   async destroy() {
     const ctx = this.ctx;
     const id = ctx.helper.parseInt(ctx.params.id);
-    const Role = await ctx.service.role.delete(id);
-    if (!Role) {
+    const user = await ctx.service.users.delete(id);
+    if (!user) {
       ctx.status = 404;
       return;
     }
@@ -53,4 +56,4 @@ class RoleController extends Controller {
   }
 }
 
-module.exports = RoleController;
+module.exports = UserController;

@@ -43,10 +43,11 @@ module.exports = app => {
 
   exports.security = {
     csrf: {
-      ignoreJSON: false,
-      cookieName: 'csrfToken',
-      sessionName: 'csrfToken',
-      headerName: 'x-csrf-token'
+    //   ignoreJSON: false,
+    //   cookieName: 'csrfToken',
+    //   sessionName: 'csrfToken',
+    //   headerName: 'x-csrf-token'
+      enable: false
     },
     xframe: {
       enable: false,
