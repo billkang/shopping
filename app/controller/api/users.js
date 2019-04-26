@@ -1,58 +1,35 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const controllerCreator = require('./controllerCreator');
+
+const {
+  index,
+  show,
+  create,
+  update,
+  destroy
+} = controllerCreator('users');
 
 class UserController extends Controller {
-  async index() {
-    const ctx = this.ctx;
-
-    const query = {
-      limit: ctx.helper.parseInt(ctx.query.limit || 20),
-      offset: ctx.helper.parseInt(ctx.query.offset || 0),
-    };
-    ctx.body = await ctx.service.users.findAll(query);
+  index() {
+    return index(this.ctx);
   }
 
   async show() {
-    const ctx = this.ctx;
-    ctx.body = await ctx.service.users.findById(ctx.helper.parseInt(ctx.params.id));
+    return show(this.ctx);
   }
 
   async create() {
-    const ctx = this.ctx;
-    const {
-      name,
-      age,
-    } = ctx.request.body;
-    const user = await ctx.service.users.create({
-      name,
-      age,
-    });
-    ctx.status = 201;
-    ctx.body = user;
+    return create(this.ctx, ['name']);
   }
 
   async update() {
-    const ctx = this.ctx;
-    const id = ctx.helper.parseInt(ctx.params.id);
-    const user = await ctx.service.users.update(id, ctx.request.body);
-    if (!user) {
-      ctx.status = 404;
-      return;
-    }
-
-    ctx.body = user;
+    return update(this.ctx);
   }
 
   async destroy() {
-    const ctx = this.ctx;
-    const id = ctx.helper.parseInt(ctx.params.id);
-    const user = await ctx.service.users.delete(id);
-    if (!user) {
-      ctx.status = 404;
-      return;
-    }
-    ctx.status = 200;
+    return destroy(this.ctx);
   }
 }
 

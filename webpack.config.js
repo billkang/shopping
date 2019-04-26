@@ -6,6 +6,6 @@ module.exports = {
   },
   alias: {
     '@': 'app/web/page/admin',
-    '_c': 'app/web/page/admin/components'
+    '_c': 'app/web/page/admin/components',
   }
 };

@@ -1,57 +1,39 @@
 'use strict';
 
 const Service = require('egg').Service;
+const serviceCreator = require('./serviceCreator');
+
+const service = serviceCreator('User');
 
 class UserService extends Service {
-  async findAll({
+  findAll({
     limit,
     offset,
   }) {
-    return await this.ctx.model.User.findAll({
+    return service.findAll(this.ctx, {
       limit,
       offset,
     });
   }
 
-  async findById(userId) {
-    return await this.ctx.model.User.findById(userId);
+  findById(id) {
+    return service.findById(this.ctx, id);
   }
 
-  async create(user) {
-    const {
-      name,
-      age,
-    } = user;
-    return await this.ctx.model.User.create({
-      name,
-      age,
-    });
+  create(payload) {
+    try {
+      return service.create(this.ctx, payload);
+    } catch (e) {
+      throw e.message;
+    }
   }
 
   async update(id, payload) {
-    const ctx = this.ctx;
-    const user = await ctx.model.User.findById(id);
-    if (!user) {
-      return;
-    }
-
-    const {
-      name,
-      age,
-    } = payload;
-    return await user.update({
-      name,
-      age,
-    });
+    return service.update(this.ctx, id, payload);
   }
 
   async delete(id) {
-    const user = await this.ctx.model.User.findById(id);
-    if (!user) {
-      return;
-    }
-
-    return await user.destroy();
+    return service.delete(this.ctx, id);
   }
 }
 

@@ -90,16 +90,42 @@ export default [
     ]
   },
   {
-    path: '/admin/roles',
-    name: 'roles',
+    path: '/admin/',
+    name: 'accounts',
     meta: {
       icon: 'md-people',
-      title: '角色管理'
+      title: '权限管理'
     },
     component: Main,
     children: [
       {
-        path: 'list',
+        path: 'accounts/list',
+        name: 'accounts_list',
+        meta: {
+          icon: 'md-list',
+          title: '管理员列表'
+        },
+        component: () => import('@/view/accounts/list.vue')
+      }, {
+        path: 'accounts/create',
+        name: 'accounts_create',
+        meta: {
+          icon: 'md-create',
+          title: '新增管理员',
+          hideInMenu: true
+        },
+        component: () => import('@/view/accounts/create.vue')
+      }, {
+        path: 'accounts/update/:id',
+        name: 'accounts_update',
+        meta: {
+          title: '管理员编辑',
+          hideInMenu: true,
+        },
+        component: () => import('@/view/accounts/create.vue')
+      },
+      {
+        path: 'roles/list',
         name: 'roles_list',
         meta: {
           icon: 'md-list',
@@ -108,22 +134,61 @@ export default [
         component: () => import('@/view/roles/list.vue')
       },
       {
-        path: 'new',
-        name: 'roles_new',
+        path: 'roles/create',
+        name: 'roles_create',
         meta: {
           icon: 'md-create',
-          title: '新增角色'
+          title: '新增角色',
+          hideInMenu: true
         },
-        component: () => import('@/view/roles/add-edit.vue')
+        component: () => import('@/view/roles/create.vue')
       },
       {
-        path: 'edit',
-        name: 'roles_edit',
+        path: 'roles/update/:id',
+        name: 'roles_update',
         meta: {
           title: '角色编辑',
           hideInMenu: true
         },
-        component: () => import('@/view/roles/add-edit.vue')
+        component: () => import('@/view/roles/create.vue')
+      }
+    ]
+  },
+  {
+    path: '/admin/users',
+    name: 'users',
+    meta: {
+      icon: 'md-people',
+      title: '用户管理'
+    },
+    component: Main,
+    children: [{
+        path: 'list',
+        name: 'users_list',
+        meta: {
+          icon: 'md-list',
+          title: '用户列表'
+        },
+        component: () => import('@/view/users/list.vue')
+      },
+      {
+        path: 'create',
+        name: 'users_create',
+        meta: {
+          icon: 'md-create',
+          title: '新增用户',
+          hideInMenu: true
+        },
+        component: () => import('@/view/users/create.vue')
+      },
+      {
+        path: 'update/:id',
+        name: 'users_update',
+        meta: {
+          title: '用户编辑',
+          hideInMenu: true
+        },
+        component: () => import('@/view/users/create.vue')
       }
     ]
   },

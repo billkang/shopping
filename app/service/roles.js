@@ -1,60 +1,39 @@
 'use strict';
 
 const Service = require('egg').Service;
+const serviceCreator = require('./serviceCreator');
+
+const service = serviceCreator('Role');
 
 class RoleService extends Service {
-  async findAll({
+  findAll({
     limit,
     offset,
   }) {
-    return await this.ctx.model.Role.findAll({
+    return service.findAll(this.ctx, {
       limit,
       offset,
     });
   }
 
-  async findById(id) {
-    return await this.ctx.model.Role.findById(id);
+  findById(id) {
+    return service.findById(this.ctx, id);
   }
 
-  async create(Role) {
+  create(payload) {
       try{
-        const {
-        name,
-        } = Role;
-        return await this.ctx.model.Role.create({
-        name,
-        created_at: Date.now(),
-        updated_at: Date.now(),
-        });
+        return service.create(this.ctx, payload);
     } catch(e) {
-        throw new Error(e.original.sqlMessage);
+        throw e.message;
     }
   }
 
   async update(id, payload) {
-    const ctx = this.ctx;
-    const Role = await ctx.model.Role.findById(id);
-    if (!Role) {
-      return;
-    }
-
-    const {
-      name,
-    } = payload;
-    return await Role.update({
-      name,
-      updated_at: Date.now(),
-    });
+    return service.update(this.ctx, id, payload);
   }
 
   async delete(id) {
-    const Role = await this.ctx.model.Role.findById(id);
-    if (!Role) {
-      return;
-    }
-
-    return await Role.destroy();
+    return service.delete(this.ctx, id);
   }
 }
 

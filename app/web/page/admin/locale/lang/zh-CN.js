@@ -1,9 +1,19 @@
 export default {
   home: '首页',
   login: '登录',
-  roles: '角色管理',
+  accounts: '权限管理',
+  accounts_list: '管理员列表',
+  accounts_create: '新增管理员',
+  accounts_update: '编辑管理员',
   roles_list: '角色列表',
-  roles_new: '新增角色',
+  roles_create: '新增角色',
+  roles_update: '编辑角色',
+  users: '用户管理',
+  users_list: '用户列表',
+  users_create: '新增用户',
+  users_update: '编辑用户',
+
+  // 原有路由
   components: '组件',
   count_to_page: '数字渐变',
   tables_page: '多功能表格',
