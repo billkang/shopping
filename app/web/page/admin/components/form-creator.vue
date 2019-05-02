@@ -2,9 +2,29 @@
   <Card>
     <Form ref="formValidate" :model="formItem" :rules="validator" :label-width="100">
       <FormItem :label="item.label" :prop="item.name" v-for="item in schema" :key="item.name">
-        <Input v-if="item.type === 'input'" v-model="formItem[item.name]" placeholder='请输入' :maxlength="item.maxlength || 20"></Input>
-        <Select v-if="item.type === 'select'" v-model="formItem[item.name]" placeholder='请选择'>
-          <Option v-for="opt in item.source" :value="opt.value">{{opt.key}}</Option>
+        <Input
+          v-if="item.type === 'input'"
+          v-model="formItem[item.name]"
+          :placeholder="item.placeholder || '请输入'"
+          :maxlength="item.maxlength || 20"
+        ></Input>
+        <Input
+          v-if="item.type === 'password'"
+          type="password"
+          v-model="formItem[item.name]"
+          :placeholder="item.placeholder || '请输入'"
+          :maxlength="item.maxlength || 20"
+        ></Input>
+        <Select
+          v-if="item.type === 'select'"
+          v-model="formItem[item.name]"
+          :placeholder="item.placeholder || '请选择'"
+        >
+          <Option
+            v-for="opt in item.source"
+            :key="opt.value"
+            :value="opt.value"
+          >{{opt.label}}</Option>
         </Select>
       </FormItem>
       <FormItem>
@@ -40,7 +60,7 @@ export default {
           Object.keys(newVal).forEach(key => this.formItem[key] = newVal[key]);
         });
       }
-    }
+    },
   },
   methods: {
     async handleSubmit() {

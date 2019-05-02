@@ -5,9 +5,9 @@ export default (apiName) => {
     getAll: ({
       pageSize = 20,
       pageNum = 1
-    }) => {
+    } = {}) => {
       return axios.request({
-        url: `/api/${apiName}`,
+        url: `/api_admin/${apiName}`,
         method: 'get',
         params: {
           limit: pageSize,
@@ -18,22 +18,23 @@ export default (apiName) => {
 
     getById: (id) => {
       return axios.request({
-        url: `/api/${apiName}/${id}`,
+        url: `/api_admin/${apiName}/${id}`,
         method: 'get',
       })
     },
 
     create: (data) => {
       return axios.request({
-        url: `/api/${apiName}`,
+        url: `/api_admin/${apiName}`,
         method: 'post',
         data
       })
     },
 
     update: (id, data) => {
+      console.log(data);
       return axios.request({
-        url: `/api/${apiName}/${id}`,
+        url: `/api_admin/${apiName}/${id}`,
         method: 'put',
         data
       })

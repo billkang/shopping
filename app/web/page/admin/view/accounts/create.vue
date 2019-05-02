@@ -1,72 +1,70 @@
 <template>
   <Card>
-    <Form ref="formValidate" :model="formData" :rules="ruleValidate" :label-width="80">
-      <FormItem label="角色名" prop="name">
-        <Input v-model="formData.name" placeholder="请输入角色名" :maxlength="20"></Input>
-      </FormItem>
-      <FormItem>
-        <Button type="primary" @click="handleSubmit()">提交</Button>
-        <Button @click="handleReset()">重置</Button>
-      </FormItem>
-    </Form>
+    <FormCreator
+      :schema="schema"
+      :validator="validator"
+      :formData="formData"
+      :on-create="API.create"
+      :on-update="API.update"
+    ></FormCreator>
   </Card>
 </template>
 
 <script type='babel'>
 import API from "@/api/accounts";
+import roleAPI from "@/api/roles";
+import FormCreator from "@/components/form-creator.vue";
 
 export default {
   name: "accounts_create",
+  components: {
+    FormCreator,
+  },
   data() {
     return {
-      recordId: "",
-      formData: {
-        name: ""
-      },
-      ruleValidate: {
-        name: [{ required: true, message: "角色名不能为空", trigger: "blur" }]
+      API,
+      schema:[
+        {
+          type: 'select',
+          label: '角色',
+          name: 'role_id',
+          source: [],
+        },
+        {
+          type: 'input',
+          label: '用户名',
+          name: 'name',
+        },
+        {
+          type: 'password',
+          label: '密码',
+          name: 'password',
+        }
+      ],
+      formData: null,
+      validator: {
+        role: [{ required: true, type: 'number', message: "角色不能为空", trigger: "change" }],
+        name: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+        password: [{ required: true, message: "密码不能为空", trigger: "blur" }]
       }
     };
   },
-  methods: {
-    async handleSubmit() {
-      const valid = await this.$refs.formValidate.validate();
-      if (valid) {
-        let res = null;
-
-        if (this.recordId) {
-          res = await API.update(this.recordId, {
-            ...this.formData
-          });
-        } else {
-          res = await API.create({
-            ...this.formData
-          });
-        }
-
-        if (res.status === 200 || res.status === 201) {
-          this.$Message.success("操作成功!");
-          this.$refs.formValidate.resetFields();
-        } else {
-          this.$Message.error(`操作失败, ${res.message}!`);
-        }
-      }
-    },
-    handleReset() {
-      this.$refs.formValidate.resetFields();
-    }
-  },
   async mounted() {
-    const { id } = this.$route.params;
+    const { status, data } = await roleAPI.getAll();
+    if(status === 200) {
+      this.schema[0].source = data.map(item => ({
+        label: item.name,
+        value: item.id,
+      }));
+    }
 
+    const { id } = this.$route.params;
     if (id) {
       this.recordId = id;
       const { status, data } = await API.getById(id);
 
       if (status === 200) {
-          this.formData = {
-            name: data.name
-          };
+          this.formData = data;
         } else {
           this.$Message.error(`获取数据失败, ${data.message}!`);
         }

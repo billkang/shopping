@@ -2,15 +2,19 @@
 module.exports = app => {
   const {
     router,
-    controller
   } = app;
 
-  router.get('/admin(/.+)?', controller.admin.index.home);
-  router.get('/client', controller.index.index.client);
-  router.get('/', controller.index.index.index);
+  // admin apis
 
-  router.resources('accounts', '/api/accounts', controller.api.accounts);
-  router.resources('goods', '/api/goods', controller.api.goods);
-  router.resources('roles', '/api/roles', controller.api.roles);
-  router.resources('users', '/api/users', controller.api.users);
+  router.resources('accounts', '/api_admin/:resourceName', 'apiAdmin.common');
+  router.resources('goods', '/api_admin/:resourceName', 'apiAdmin.common');
+  router.resources('roles', '/api_admin/:resourceName', 'apiAdmin.common');
+  router.resources('users', '/api_admin/:resourceName', 'apiAdmin.common');
+
+  const localStrategy = app.passport.authenticate('local');
+  app.router.post('/passport/local', localStrategy);
+  app.router.get('/admin/logout', 'admin.logout');
+
+  router.get('/admin', 'admin.index');
+  router.get('/', 'client.index');
 };
