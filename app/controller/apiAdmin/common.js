@@ -40,14 +40,7 @@ class CommonController extends Controller {
       resourceName
     } = ctx.params;
 
-    const params = {};
-    const keys = ['name'];
-    keys.forEach(key => {
-      params[key] = ctx.request.body[key];
-    });
-    const model = await ctx.service.common.create(modelMap[resourceName], {
-      ...params
-    });
+    const model = await ctx.service.common.create(modelMap[resourceName], ctx.request.body);
     ctx.status = 201;
     ctx.body = model;
   }

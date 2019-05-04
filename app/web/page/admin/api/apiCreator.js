@@ -42,7 +42,7 @@ export default (apiName) => {
 
     remove: (id) => {
       return axios.request({
-        url: `/api/${apiName}/${id}`,
+        url: `/api_admin/${apiName}/${id}`,
         method: 'delete',
       })
     }

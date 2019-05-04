@@ -33,7 +33,7 @@ export default {
         {
           type: 'input',
           label: '用户名',
-          name: 'name',
+          name: 'username',
         },
         {
           type: 'password',
@@ -44,7 +44,7 @@ export default {
       formData: null,
       validator: {
         role: [{ required: true, type: 'number', message: "角色不能为空", trigger: "change" }],
-        name: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+        username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
         password: [{ required: true, message: "密码不能为空", trigger: "blur" }]
       }
     };

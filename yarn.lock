@@ -4609,6 +4609,13 @@ egg-validate@^1.0.0:
   dependencies:
     parameter "^2.4.0"
 
+egg-view-ejs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/egg-view-ejs/download/egg-view-ejs-2.0.0.tgz#996f38e61b497c92b449dbb1103141a13f32d65f"
+  integrity sha1-mW845htJfJK0SduxEDFBoT8y1l8=
+  dependencies:
+    ejs "^2.5.7"
+
 egg-view-vue-ssr@^3.0.5:
   version "3.3.0"
   resolved "http://registry.npm.taobao.org/egg-view-vue-ssr/download/egg-view-vue-ssr-3.3.0.tgz#39ae34537e9166545b9f9a895d5def7e8fa801ad"
@@ -4700,7 +4707,7 @@ egg@^2.1.0:
     utility "^1.15.0"
     ylru "^1.2.1"
 
-ejs@^2.6.1:
+ejs@^2.5.7, ejs@^2.6.1:
   version "2.6.1"
   resolved "http://registry.npm.taobao.org/ejs/download/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
   integrity sha1-SY7A1JVlWrxvI81hho2SZGQHGqA=

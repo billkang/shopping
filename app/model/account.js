@@ -14,7 +14,7 @@ module.exports = app => {
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    username: {
       type: STRING(30),
       unique: true,
     },

@@ -8,6 +8,11 @@ exports.sequelize = {
   package: 'egg-sequelize',
 };
 
+exports.ejs = {
+  enable: true,
+  package: 'egg-view-ejs'
+};
+
 module.exports.passport = {
   enable: true,
   package: 'egg-passport',

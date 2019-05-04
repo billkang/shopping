@@ -13,6 +13,19 @@ module.exports = app => {
     password: '123456',
   };
 
+  exports.session = {
+    key: 'TG_WEB_SESS',
+    maxAge: 24 * 3600 * 1000, // 1 天
+    httpOnly: true,
+    encrypt: true
+  }
+
+  exports.view = {
+    mapping: {
+      '.ejs': 'ejs'
+    }
+  }
+
   exports.siteFile = {
     '/favicon.ico': fs.readFileSync(path.join(app.baseDir, 'app/web/asset/images/favicon.ico'))
   };
@@ -37,8 +50,9 @@ module.exports = app => {
   exports.keys = '123456';
 
   exports.middleware = [
-    'locals',
-    'access'
+    // 'auth',
+    // 'locals',
+    // 'access'
   ];
 
   exports.security = {
@@ -53,6 +67,11 @@ module.exports = app => {
       enable: false,
     },
   };
+
+  exports.passportLocal = {
+    usernameField: 'username',
+    passwordField: 'password'
+  }
 
   return exports;
 };

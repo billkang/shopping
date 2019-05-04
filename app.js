@@ -11,22 +11,37 @@ module.exports = app => {
     // });
   }
 
-  // 挂载 strategy
-  app.passport.use(new LocalStrategy({
-    passReqToCallback: true,
-  }, (req, username, password, done) => {
-    // format user
-    const user = {
-      provider: 'local',
-      username,
-      password,
-    };
-    debug('%s %s get user: %j', req.method, req.url, user);
-    app.passport.doVerify(req, user, done);
-  }));
+  // // 处理用户信息
+  // app.passport.verify(async (ctx, user) => {
+  //   const {
+  //     username,
+  //     password
+  //   } = user;
 
-  // 处理用户信息
-  app.passport.verify(async (ctx, user) => {});
-  app.passport.serializeUser(async (ctx, user) => {});
-  app.passport.deserializeUser(async (ctx, user) => {});
+  //   const account = await ctx.model.Account.findOne({
+  //     where: {
+  //       username,
+  //       password
+  //     }
+  //   });
+
+  //   if (!account) {
+  //     throw new Error('登陆失败，用户名或者密码错误！');
+  //   }
+
+  //   return account;
+  // });
+
+  // app.passport.serializeUser(async (ctx, user) => {
+  //   if(user && user.dataValues) {
+  //     return user.dataValues;
+  //   }
+  //   return null;
+  // });
+
+  // app.passport.deserializeUser(async (ctx, user) => {
+  //   console.log('deserializeUser: ', user);
+
+  //   return user;
+  // });
 };

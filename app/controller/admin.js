@@ -2,15 +2,28 @@
 const egg = require('egg');
 module.exports = class AdminController extends egg.Controller {
   async index(ctx) {
-    if(ctx.isAuthenticated()){
-      const url = ctx.url.replace(/\/admin/, '');
-      await ctx.render('admin/main.js', {
-        ctx,
-        url
-      });
-    } else {
-      ctx.session.returnTo = ctx.path;
-      await ctx.render('admin/main.js');
+    const url = ctx.url;
+
+    console.log(ctx.user);
+
+    await ctx.renderClient('admin/main.js', {
+      ctx,
+      url
+    });
+  }
+
+  // async login() {
+  //   const ctx = this.ctx;
+
+  //   console.log(ctx);
+  // }
+
+  async authCallback(ctx) {
+    console.log(this.ctx.user);
+
+    await this.ctx.login(this.ctx.user);
+    ctx.body = {
+      user: ctx.user,
     }
   }
 

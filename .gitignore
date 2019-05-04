@@ -3,3 +3,4 @@
 /run
 /public
 .sonarlint
+/app/view/node_modules
